@@ -119,7 +119,7 @@ Output below is pasted from running `node bin/cli.js examples/risky-workflow.jso
 
 **Before** (`examples/risky-workflow.json`):
 
-````text
+```text
 examples/risky-workflow.json  (Lead intake agent (risky))  score 0/100 [F]
   [CRITICAL] N8N001  "HTTP Request": Bearer token at headerParameters.parameters[0].value (Bear...(38 chars)).
              fix: Move the value into an n8n credential or an environment variable and reference it by expression; rotate the exposed secret.
@@ -204,7 +204,7 @@ N8N023 is a rough ceiling, not a bill. It assumes every agent uses its full `max
 ```bash
 node --test            # 75 tests: fixtures (good/bad), SARIF shape, golden md report, CLI exit codes
 node scripts/build-fixtures.js && node scripts/build-examples.js && node scripts/gen-docs.js
-````
+```
 
 Every `fixtures/bad/<rule-id>*.json` must fire exactly its own rule and every `fixtures/good/*.json` must produce zero findings. Secret-shaped test strings are assembled at runtime so none sit in the repo.
 
