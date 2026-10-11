@@ -1,0 +1,72 @@
+name: 'n8n Workflow Lint'
+description: 'Lint n8n workflow JSON for production readiness (secrets, error handling, AI-agent loops) and upload SARIF to code scanning.'
+author: 'Waseem Nasir / SkynetLabs'
+branding:
+  icon: 'shield'
+  color: 'orange'
+
+inputs:
+  path:
+    description: 'File, directory or glob containing n8n workflow JSON.'
+    required: false
+    default: '.'
+  fail-on:
+    description: 'Fail the step on findings at or above this severity (info|low|medium|high|critical).'
+    required: false
+    default: 'high'
+  min-score:
+    description: 'Also fail if the overall score is below this number (0-100). Leave empty to disable.'
+    required: false
+    default: ''
+  sarif-file:
+    description: 'Where to write the SARIF report.'
+    required: false
+    default: 'n8n-workflow-lint.sarif'
+  upload-sarif:
+    description: 'Upload the SARIF file to GitHub code scanning (needs security-events: write).'
+    required: false
+    default: 'true'
+  config:
+    description: 'Optional path to a .n8nlintrc.json config file.'
+    required: false
+    default: ''
+
+outputs:
+  exit-code:
+    description: 'Exit code of the linter: 0 clean, 1 findings over threshold, 2 parse error.'
+    value: ${{ steps.lint.outputs.exit-code }}
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+    - id: lint
+      shell: bash
+      env:
+        IN_PATH: ${{ inputs.path }}
+        IN_FAIL_ON: ${{ inputs.fail-on }}
+        IN_MIN_SCORE: ${{ inputs.min-score }}
+        IN_SARIF: ${{ inputs.sarif-file }}
+        IN_CONFIG: ${{ inputs.config }}
+      run: |
+        args=("$IN_PATH" --format sarif --out "$IN_SARIF" --fail-on "$IN_FAIL_ON")
+        if [ -n "$IN_MIN_SCORE" ]; then args+=(--min-score "$IN_MIN_SCORE"); fi
+        if [ -n "$IN_CONFIG" ]; then args+=(--config "$IN_CONFIG"); fi
+        set +e
+        node "${{ github.action_path }}/bin/cli.js" "${args[@]}"
+        code=$?
+        set -e
+        echo "exit-code=$code" >> "$GITHUB_OUTPUT"
+        node "${{ github.action_path }}/bin/cli.js" "$IN_PATH" --format md >> "$GITHUB_STEP_SUMMARY" || true
+    - if: ${{ inputs.upload-sarif == 'true' && steps.lint.outputs.exit-code != '2' }}
+      uses: github/codeql-action/upload-sarif@v3
+      with:
+        sarif_file: ${{ inputs.sarif-file }}
+        category: n8n-workflow-lint
+    - if: ${{ steps.lint.outputs.exit-code != '0' }}
+      shell: bash
+      run: |
+        echo "n8n-workflow-lint exited with code ${{ steps.lint.outputs.exit-code }}"
+        exit ${{ steps.lint.outputs.exit-code }}

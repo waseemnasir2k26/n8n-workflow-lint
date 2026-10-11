@@ -1,0 +1,41 @@
+{
+  "name": "Daily orders",
+  "nodes": [
+    {
+      "id": "on-failure",
+      "name": "On Failure",
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "alert-ops",
+      "name": "Alert Ops",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {}
+    }
+  ],
+  "connections": {
+    "On Failure": {
+      "main": [
+        [
+          {
+            "node": "Alert Ops",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {}
+}

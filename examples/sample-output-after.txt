@@ -1,0 +1,6 @@
+examples/fixed-workflow.json  (Lead intake agent (hardened))  score 100/100 [A]
+  no findings
+  est. LLM cost: ~$43.20/month at 100 runs/day (upper bound, prices dated 2026-10-12)
+
+1 workflow(s), 0 finding(s): 0 critical, 0 high, 0 medium, 0 low, 0 info
+Overall score: 100/100 [A]

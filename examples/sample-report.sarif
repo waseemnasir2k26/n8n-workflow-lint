@@ -1,0 +1,774 @@
+{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "n8n-workflow-lint",
+          "version": "1.0.0",
+          "informationUri": "https://github.com/waseemnasir2k26/n8n-workflow-lint",
+          "rules": [
+            {
+              "id": "N8N001",
+              "name": "HardcodedSecretInCodeOrHTTPNode",
+              "shortDescription": {
+                "text": "Hardcoded secret in Code or HTTP node"
+              },
+              "fullDescription": {
+                "text": "Workflow JSON is routinely pasted into forums, tickets and git. A key typed into a header or Code node travels with the export."
+              },
+              "help": {
+                "text": "Move the value into an n8n credential or an environment variable and reference it by expression; rotate the exposed secret.",
+                "markdown": "**Fix:** Move the value into an n8n credential or an environment variable and reference it by expression; rotate the exposed secret.\n\nDocs: https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N001.md"
+              },
+              "helpUri": "https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N001.md",
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "n8n"
+                ],
+                "security-severity": "9.5"
+              }
+            },
+            {
+              "id": "N8N002",
+              "name": "pinDataLeakedInTheExport",
+              "shortDescription": {
+                "text": "pinData leaked in the export"
+              },
+              "fullDescription": {
+                "text": "Pinned data is real execution output. It often contains customer emails, tokens and API responses."
+              },
+              "help": {
+                "text": "Unpin data in the editor (or delete the \"pinData\" key) before sharing or committing the workflow.",
+                "markdown": "**Fix:** Unpin data in the editor (or delete the \"pinData\" key) before sharing or committing the workflow.\n\nDocs: https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N002.md"
+              },
+              "helpUri": "https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N002.md",
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "n8n"
+                ],
+                "security-severity": "8.0"
+              }
+            },
+            {
+              "id": "N8N003",
+              "name": "WebhookWithNoAuthentication",
+              "shortDescription": {
+                "text": "Webhook with no authentication"
+              },
+              "fullDescription": {
+                "text": "A public production URL with authentication \"none\" lets anyone on the internet trigger your workflow and spend your API credits."
+              },
+              "help": {
+                "text": "Set Authentication to Header Auth / Basic Auth / JWT on the Webhook node, or verify a signature in the first node.",
+                "markdown": "**Fix:** Set Authentication to Header Auth / Basic Auth / JWT on the Webhook node, or verify a signature in the first node.\n\nDocs: https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N003.md"
+              },
+              "helpUri": "https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N003.md",
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "n8n"
+                ],
+                "security-severity": "8.0"
+              }
+            },
+            {
+              "id": "N8N004",
+              "name": "CredentialReferencedByInstanceIdNameNotPlaceholder",
+              "shortDescription": {
+                "text": "Credential referenced by instance id/name, not placeholder"
+              },
+              "fullDescription": {
+                "text": "Credential ids and names reveal how your instance is wired and break on import. Shared templates should use placeholders."
+              },
+              "help": {
+                "text": "Before sharing the workflow as a template, replace credential ids/names with placeholders (or strip the \"credentials\" key).",
+                "markdown": "**Fix:** Before sharing the workflow as a template, replace credential ids/names with placeholders (or strip the \"credentials\" key).\n\nDocs: https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N004.md"
+              },
+              "helpUri": "https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N004.md",
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "n8n"
+                ],
+                "security-severity": "1.0"
+              }
+            },
+            {
+              "id": "N8N005",
+              "name": "TLSCertificateValidationDisabled",
+              "shortDescription": {
+                "text": "TLS certificate validation disabled"
+              },
+              "fullDescription": {
+                "text": "Disabling certificate checks removes the guarantee that you are talking to the intended server."
+              },
+              "help": {
+                "text": "Turn off \"Ignore SSL Issues\" and install the correct CA certificate or fix the endpoint certificate.",
+                "markdown": "**Fix:** Turn off \"Ignore SSL Issues\" and install the correct CA certificate or fix the endpoint certificate.\n\nDocs: https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N005.md"
+              },
+              "helpUri": "https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N005.md",
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "security",
+                  "n8n"
+                ],
+                "security-severity": "5.5"
+              }
+            },
+            {
+              "id": "N8N010",
+              "name": "NoErrorWorkflow",
+              "shortDescription": {
+                "text": "No error workflow"
+              },
+              "fullDescription": {
+                "text": "Without an error workflow, production failures are silent until a customer tells you."
+              },
+              "help": {
+                "text": "Set Settings -> Error Workflow to a workflow that starts with an Error Trigger and alerts you (Slack, email).",
+                "markdown": "**Fix:** Set Settings -> Error Workflow to a workflow that starts with an Error Trigger and alerts you (Slack, email).\n\nDocs: https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N010.md"
+              },
+              "helpUri": "https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N010.md",
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "reliability",
+                  "n8n"
+                ],
+                "security-severity": "8.0"
+              }
+            },
+            {
+              "id": "N8N011",
+              "name": "HTTPRequestWithoutRetryOrTimeout",
+              "shortDescription": {
+                "text": "HTTP Request without retry or timeout"
+              },
+              "fullDescription": {
+                "text": "Remote APIs fail transiently. A missing timeout can hang an execution; a missing retry turns a blip into a failed run."
+              },
+              "help": {
+                "text": "Enable \"Retry On Fail\" (3 tries, 2-5 s wait) and set Options -> Timeout (e.g. 30000 ms).",
+                "markdown": "**Fix:** Enable \"Retry On Fail\" (3 tries, 2-5 s wait) and set Options -> Timeout (e.g. 30000 ms).\n\nDocs: https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N011.md"
+              },
+              "helpUri": "https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N011.md",
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "reliability",
+                  "n8n"
+                ],
+                "security-severity": "5.5"
+              }
+            },
+            {
+              "id": "N8N012",
+              "name": "LoopWithNoExitBranch",
+              "shortDescription": {
+                "text": "Loop with no exit branch"
+              },
+              "fullDescription": {
+                "text": "A batch loop whose finished branch goes nowhere never hands results on, and a mis-wired loop can run forever."
+              },
+              "help": {
+                "text": "Connect the \"done\" output (output 0 in Loop Over Items v3) to the next step, so the loop can finish and continue.",
+                "markdown": "**Fix:** Connect the \"done\" output (output 0 in Loop Over Items v3) to the next step, so the loop can finish and continue.\n\nDocs: https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N012.md"
+              },
+              "helpUri": "https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N012.md",
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "reliability",
+                  "n8n"
+                ],
+                "security-severity": "5.5"
+              }
+            },
+            {
+              "id": "N8N013",
+              "name": "OrphanOrDisconnectedNode",
+              "shortDescription": {
+                "text": "Orphan or disconnected node"
+              },
+              "fullDescription": {
+                "text": "Dead nodes hide stale logic and mislead the next person who edits the workflow."
+              },
+              "help": {
+                "text": "Connect the node, or delete it. Disable it only if you plan to use it again.",
+                "markdown": "**Fix:** Connect the node, or delete it. Disable it only if you plan to use it again.\n\nDocs: https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N013.md"
+              },
+              "helpUri": "https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N013.md",
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "properties": {
+                "tags": [
+                  "reliability",
+                  "n8n"
+                ],
+                "security-severity": "3.0"
+              }
+            },
+            {
+              "id": "N8N014",
+              "name": "DefaultNodeNames",
+              "shortDescription": {
+                "text": "Default node names"
+              },
+              "fullDescription": {
+                "text": "Names like \"HTTP Request1\" make errors, execution logs and expressions ($('HTTP Request1')) impossible to read at 3am."
+              },
+              "help": {
+                "text": "Rename nodes to say what they do (\"Fetch Orders\", \"Is VIP?\"). Expressions that reference them become readable.",
+                "markdown": "**Fix:** Rename nodes to say what they do (\"Fetch Orders\", \"Is VIP?\"). Expressions that reference them become readable.\n\nDocs: https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N014.md"
+              },
+              "helpUri": "https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N014.md",
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "properties": {
+                "tags": [
+                  "reliability",
+                  "n8n"
+                ],
+                "security-severity": "3.0"
+              }
+            },
+            {
+              "id": "N8N015",
+              "name": "DeprecatedNodeTypeVersion",
+              "shortDescription": {
+                "text": "Deprecated node typeVersion"
+              },
+              "fullDescription": {
+                "text": "Old node versions miss bug fixes and options, and replaced node types are eventually removed."
+              },
+              "help": {
+                "text": "Re-add the node from the node panel (or open and re-save it in a current n8n) so it picks up the current version.",
+                "markdown": "**Fix:** Re-add the node from the node panel (or open and re-save it in a current n8n) so it picks up the current version.\n\nDocs: https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N015.md"
+              },
+              "helpUri": "https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N015.md",
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "properties": {
+                "tags": [
+                  "reliability",
+                  "n8n"
+                ],
+                "security-severity": "3.0"
+              }
+            },
+            {
+              "id": "N8N016",
+              "name": "inputFirstWithoutAGuard",
+              "shortDescription": {
+                "text": "$input.first() without a guard"
+              },
+              "fullDescription": {
+                "text": "When the previous node returns zero items, $input.first() is undefined and the Code node throws, killing the run."
+              },
+              "help": {
+                "text": "Check `$input.all().length` first, or use optional chaining: `$input.first()?.json`.",
+                "markdown": "**Fix:** Check `$input.all().length` first, or use optional chaining: `$input.first()?.json`.\n\nDocs: https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N016.md"
+              },
+              "helpUri": "https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N016.md",
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "reliability",
+                  "n8n"
+                ],
+                "security-severity": "5.5"
+              }
+            },
+            {
+              "id": "N8N017",
+              "name": "NoTriggerNode",
+              "shortDescription": {
+                "text": "No trigger node"
+              },
+              "fullDescription": {
+                "text": "A workflow with no trigger never runs on its own, so a \"scheduled\" automation silently does nothing."
+              },
+              "help": {
+                "text": "Add a Schedule, Webhook or other trigger, or mark the workflow as a sub-workflow with an Execute Workflow Trigger.",
+                "markdown": "**Fix:** Add a Schedule, Webhook or other trigger, or mark the workflow as a sub-workflow with an Execute Workflow Trigger.\n\nDocs: https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N017.md"
+              },
+              "helpUri": "https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N017.md",
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "reliability",
+                  "n8n"
+                ],
+                "security-severity": "5.5"
+              }
+            },
+            {
+              "id": "N8N018",
+              "name": "DisabledNodesLeftInWorkflow",
+              "shortDescription": {
+                "text": "Disabled nodes left in workflow"
+              },
+              "fullDescription": {
+                "text": "Disabled nodes rot: nobody remembers why they exist or whether re-enabling them is safe."
+              },
+              "help": {
+                "text": "Delete experiments you are done with; keep the history in git instead of in the canvas.",
+                "markdown": "**Fix:** Delete experiments you are done with; keep the history in git instead of in the canvas.\n\nDocs: https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N018.md"
+              },
+              "helpUri": "https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N018.md",
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "properties": {
+                "tags": [
+                  "reliability",
+                  "n8n"
+                ],
+                "security-severity": "1.0"
+              }
+            },
+            {
+              "id": "N8N019",
+              "name": "ExecuteCommandNode",
+              "shortDescription": {
+                "text": "Execute Command node"
+              },
+              "fullDescription": {
+                "text": "Shell execution plus expression input is a command-injection path, and n8n Cloud does not allow the node at all."
+              },
+              "help": {
+                "text": "Replace it with a dedicated node, an HTTP call to a service, or a sandboxed worker. If you must keep it, never interpolate user input.",
+                "markdown": "**Fix:** Replace it with a dedicated node, an HTTP call to a service, or a sandboxed worker. If you must keep it, never interpolate user input.\n\nDocs: https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N019.md"
+              },
+              "helpUri": "https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N019.md",
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "properties": {
+                "tags": [
+                  "reliability",
+                  "n8n"
+                ],
+                "security-severity": "5.5"
+              }
+            },
+            {
+              "id": "N8N020",
+              "name": "AIAgentWithoutASaneIterationCap",
+              "shortDescription": {
+                "text": "AI Agent without a sane iteration cap"
+              },
+              "fullDescription": {
+                "text": "An agent that keeps calling tools can loop on every failure. The iteration cap is the cheapest circuit breaker you have."
+              },
+              "help": {
+                "text": "Set Options -> Max Iterations to a small number (3-5 for most agents; never above 10).",
+                "markdown": "**Fix:** Set Options -> Max Iterations to a small number (3-5 for most agents; never above 10).\n\nDocs: https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N020.md"
+              },
+              "helpUri": "https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N020.md",
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "ai cost",
+                  "n8n"
+                ],
+                "security-severity": "8.0"
+              }
+            },
+            {
+              "id": "N8N021",
+              "name": "RetryPathLoopsBackIntoAnLLMNode",
+              "shortDescription": {
+                "text": "Retry path loops back into an LLM node"
+              },
+              "fullDescription": {
+                "text": "A hand-wired retry that re-enters an LLM node has no built-in ceiling, so every failure becomes another paid call."
+              },
+              "help": {
+                "text": "Break the cycle: cap attempts with a counter and an IF, or use node-level Retry On Fail (bounded by maxTries) instead of wiring a loop.",
+                "markdown": "**Fix:** Break the cycle: cap attempts with a counter and an IF, or use node-level Retry On Fail (bounded by maxTries) instead of wiring a loop.\n\nDocs: https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N021.md"
+              },
+              "helpUri": "https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N021.md",
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "ai cost",
+                  "n8n"
+                ],
+                "security-severity": "8.0"
+              }
+            },
+            {
+              "id": "N8N022",
+              "name": "HTTPErrorOutputWiredBackIntoAnAgent",
+              "shortDescription": {
+                "text": "HTTP error output wired back into an agent"
+              },
+              "fullDescription": {
+                "text": "An agent that receives a 404/500 as fresh input tends to retry the same tool call. One community report describes this pattern costing $300 in about 30 minutes."
+              },
+              "help": {
+                "text": "Send the error output to an alert/stop path (Stop and Error, Slack), not back into the agent. Cap agent iterations (N8N020).",
+                "markdown": "**Fix:** Send the error output to an alert/stop path (Stop and Error, Slack), not back into the agent. Cap agent iterations (N8N020).\n\nDocs: https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N022.md"
+              },
+              "helpUri": "https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N022.md",
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "properties": {
+                "tags": [
+                  "ai cost",
+                  "n8n"
+                ],
+                "security-severity": "8.0"
+              }
+            },
+            {
+              "id": "N8N023",
+              "name": "HighEstimatedMonthlyLLMTokenCost",
+              "shortDescription": {
+                "text": "High estimated monthly LLM token cost"
+              },
+              "fullDescription": {
+                "text": "Agent loops multiply calls. The estimate is a deliberate upper bound (every agent uses its full iteration budget) so you see worst-case exposure before production does."
+              },
+              "help": {
+                "text": "Lower maxIterations, route simple steps to a cheaper model, or add a spend cap at the provider. Tune with --runs-per-day and --cost-threshold.",
+                "markdown": "**Fix:** Lower maxIterations, route simple steps to a cheaper model, or add a spend cap at the provider. Tune with --runs-per-day and --cost-threshold.\n\nDocs: https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N023.md"
+              },
+              "helpUri": "https://github.com/waseemnasir2k26/n8n-workflow-lint/blob/main/docs/rules/N8N023.md",
+              "defaultConfiguration": {
+                "level": "note"
+              },
+              "properties": {
+                "tags": [
+                  "ai cost",
+                  "n8n"
+                ],
+                "security-severity": "3.0"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "N8N001",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "text": "\"HTTP Request\": Bearer token at headerParameters.parameters[0].value (Bear...(38 chars)). Fix: Move the value into an n8n credential or an environment variable and reference it by expression; rotate the exposed secret."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/risky-workflow.json"
+                },
+                "region": {
+                  "startLine": 19
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "N8N002",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "pinData present on 1 node(s) (1 item(s)): Webhook. Fix: Unpin data in the editor (or delete the \"pinData\" key) before sharing or committing the workflow."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/risky-workflow.json"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "N8N003",
+          "ruleIndex": 2,
+          "level": "error",
+          "message": {
+            "text": "\"Webhook\": Webhook node accepts unauthenticated requests. Fix: Set Authentication to Header Auth / Basic Auth / JWT on the Webhook node, or verify a signature in the first node."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/risky-workflow.json"
+                },
+                "region": {
+                  "startLine": 6
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "N8N010",
+          "ruleIndex": 5,
+          "level": "error",
+          "message": {
+            "text": "No Error Workflow is configured and there is no Error Trigger. Fix: Set Settings -> Error Workflow to a workflow that starts with an Error Trigger and alerts you (Slack, email)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/risky-workflow.json"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "N8N021",
+          "ruleIndex": 16,
+          "level": "error",
+          "message": {
+            "text": "\"AI Agent\": Cycle through \"AI Agent\" -> \"Code\" -> \"HTTP Request1\" re-enters an LLM node with no ceiling. Fix: Break the cycle: cap attempts with a counter and an IF, or use node-level Retry On Fail (bounded by maxTries) instead of wiring a loop."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/risky-workflow.json"
+                },
+                "region": {
+                  "startLine": 44
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "N8N022",
+          "ruleIndex": 17,
+          "level": "error",
+          "message": {
+            "text": "\"HTTP Request1\": Error output of \"HTTP Request1\" reaches AI Agent \"AI Agent\". Fix: Send the error output to an alert/stop path (Stop and Error, Slack), not back into the agent. Cap agent iterations (N8N020)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/risky-workflow.json"
+                },
+                "region": {
+                  "startLine": 83
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "N8N005",
+          "ruleIndex": 4,
+          "level": "warning",
+          "message": {
+            "text": "\"HTTP Request\": HTTP Request ignores invalid TLS certificates. Fix: Turn off \"Ignore SSL Issues\" and install the correct CA certificate or fix the endpoint certificate."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/risky-workflow.json"
+                },
+                "region": {
+                  "startLine": 19
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "N8N011",
+          "ruleIndex": 6,
+          "level": "warning",
+          "message": {
+            "text": "\"HTTP Request\": HTTP Request is missing retryOnFail and timeout. Fix: Enable \"Retry On Fail\" (3 tries, 2-5 s wait) and set Options -> Timeout (e.g. 30000 ms)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/risky-workflow.json"
+                },
+                "region": {
+                  "startLine": 19
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "N8N011",
+          "ruleIndex": 6,
+          "level": "warning",
+          "message": {
+            "text": "\"HTTP Request1\": HTTP Request is missing retryOnFail and timeout. Fix: Enable \"Retry On Fail\" (3 tries, 2-5 s wait) and set Options -> Timeout (e.g. 30000 ms)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/risky-workflow.json"
+                },
+                "region": {
+                  "startLine": 83
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "N8N016",
+          "ruleIndex": 11,
+          "level": "warning",
+          "message": {
+            "text": "\"Code\": Code node reads $input.first() with no empty-input guard. Fix: Check `$input.all().length` first, or use optional chaining: `$input.first()?.json`."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/risky-workflow.json"
+                },
+                "region": {
+                  "startLine": 70
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "N8N020",
+          "ruleIndex": 15,
+          "level": "warning",
+          "message": {
+            "text": "\"AI Agent\": AI Agent relies on the default iteration limit (no explicit maxIterations). Fix: Set Options -> Max Iterations to a small number (3-5 for most agents; never above 10)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/risky-workflow.json"
+                },
+                "region": {
+                  "startLine": 44
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "N8N014",
+          "ruleIndex": 9,
+          "level": "note",
+          "message": {
+            "text": "\"HTTP Request\": 4 node(s) have default names: \"HTTP Request\", \"AI Agent\", \"Code\", \"HTTP Request1\". Fix: Rename nodes to say what they do (\"Fetch Orders\", \"Is VIP?\"). Expressions that reference them become readable."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/risky-workflow.json"
+                },
+                "region": {
+                  "startLine": 19
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "N8N015",
+          "ruleIndex": 10,
+          "level": "note",
+          "message": {
+            "text": "\"HTTP Request\": typeVersion 1 is older than 4 for n8n-nodes-base.httpRequest. Fix: Re-add the node from the node panel (or open and re-save it in a current n8n) so it picks up the current version."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/risky-workflow.json"
+                },
+                "region": {
+                  "startLine": 19
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "N8N023",
+          "ruleIndex": 18,
+          "level": "note",
+          "message": {
+            "text": "\"AI Agent\": Upper-bound estimate ~$2025/month at 100 runs/day (prices dated 2026-10-12); largest: \"AI Agent\" on claude-3-opus. Fix: Lower maxIterations, route simple steps to a cheaper model, or add a spend cap at the provider. Tune with --runs-per-day and --cost-threshold."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "examples/risky-workflow.json"
+                },
+                "region": {
+                  "startLine": 44
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

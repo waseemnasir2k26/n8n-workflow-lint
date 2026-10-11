@@ -1,0 +1,49 @@
+{
+  "name": "n8n-workflow-lint",
+  "version": "1.0.0",
+  "description": "Zero-dependency CLI + GitHub Action that lints n8n workflow JSON for production readiness: leaked secrets, missing error handling, unbounded AI-agent loops, SARIF.",
+  "type": "module",
+  "bin": {
+    "n8n-workflow-lint": "bin/cli.js"
+  },
+  "main": "src/index.js",
+  "files": [
+    "bin",
+    "src",
+    "docs",
+    "action.yml",
+    "examples",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test",
+    "lint:self": "node bin/cli.js examples/vendored --fail-on critical",
+    "docs": "node scripts/gen-docs.js"
+  },
+  "keywords": [
+    "n8n",
+    "n8n-workflow",
+    "linter",
+    "sarif",
+    "github-action",
+    "static-analysis",
+    "ai-agents",
+    "llm-cost",
+    "security"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/waseemnasir2k26/n8n-workflow-lint.git"
+  },
+  "homepage": "https://github.com/waseemnasir2k26/n8n-workflow-lint#readme",
+  "bugs": {
+    "url": "https://github.com/waseemnasir2k26/n8n-workflow-lint/issues"
+  },
+  "author": "Waseem Nasir",
+  "license": "MIT"
+}

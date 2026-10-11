@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-12",
+  "source": "Approximate public list prices (USD per 1M tokens), compiled by the maintainers. Indicative only: verify against the provider pricing page before budgeting.",
+  "currency": "USD",
+  "per": "1M tokens",
+  "assumptions": { "inputTokensPerCall": 2000, "outputTokensPerCall": 500 },
+  "default": {
+    "in": 3,
+    "out": 15,
+    "note": "unknown model, mid-range assumption"
+  },
+  "models": {
+    "gpt-4o-mini": { "in": 0.15, "out": 0.6 },
+    "gpt-4o": { "in": 2.5, "out": 10 },
+    "gpt-4.1-mini": { "in": 0.4, "out": 1.6 },
+    "gpt-4.1-nano": { "in": 0.1, "out": 0.4 },
+    "gpt-4.1": { "in": 2, "out": 8 },
+    "gpt-3.5-turbo": { "in": 0.5, "out": 1.5 },
+    "o1": { "in": 15, "out": 60 },
+    "claude-3-5-haiku": { "in": 0.8, "out": 4 },
+    "claude-3-5-sonnet": { "in": 3, "out": 15 },
+    "claude-3-opus": { "in": 15, "out": 75 },
+    "claude-haiku": { "in": 0.8, "out": 4 },
+    "claude-sonnet": { "in": 3, "out": 15 },
+    "claude-opus": { "in": 15, "out": 75 },
+    "gemini-1.5-pro": { "in": 1.25, "out": 5 },
+    "gemini-1.5-flash": { "in": 0.075, "out": 0.3 },
+    "gemini-2.0-flash": { "in": 0.1, "out": 0.4 }
+  }
+}
