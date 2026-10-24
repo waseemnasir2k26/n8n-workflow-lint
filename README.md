@@ -210,10 +210,9 @@ Every `fixtures/bad/<rule-id>*.json` must fire exactly its own rule and every `f
 
 ## Get your n8n estate audited and fixed
 
-If the scorecard above is red and you would rather have it fixed than read about it, SkynetLabs offers a fixed-price **n8n audit + hardening**: we run this linter and manual review across your workflows, fix the findings, add error workflows and spend caps, and hand back a clean scorecard.
+If the scorecard above is red and you would rather have it fixed than read about it, SkynetLabs offers an **n8n audit + hardening** service: we run this linter and manual review across your workflows, fix the findings, add error workflows and spend caps, and hand back a clean scorecard.
 
-- Fiverr: https://www.fiverr.com/agencies/skynetjoellc
-- Upwork: https://www.upwork.com/freelancers/muhammadwaseemnasir
+Contact: info@skynetjoe.com
 
 ## More from SkynetLabs
 
@@ -221,10 +220,8 @@ If the scorecard above is red and you would rather have it fixed than read about
 - [n8n-circuit-breaker-pack](https://github.com/waseemnasir2k26/n8n-circuit-breaker-pack): circuit-breaker patterns for n8n automations.
 - [n8n-social-leadgen-pack](https://github.com/waseemnasir2k26/n8n-social-leadgen-pack): n8n packs for social and lead generation.
 
-## Work with SkynetLabs
+---
 
-Built by [Waseem Nasir](https://www.skynetjoe.com/?utm_source=github&utm_medium=readme&utm_campaign=n8n-workflow-lint) at SkynetLabs — n8n + AI automation for small businesses.
+Built by SkynetLabs. Contact: info@skynetjoe.com
 
-- Hire on Fiverr: https://www.fiverr.com/agencies/skynetjoellc
-- Hire on Upwork: https://www.upwork.com/freelancers/muhammadwaseemnasir
-- Book a free call: https://calendly.com/skynetlabs/schedule-a-free-consultation
+Need this wired into your business? SkynetLabs builds voice agents, n8n back offices and sites that convert → https://skynetjoe.com
